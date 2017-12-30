@@ -175,9 +175,27 @@ body {
         });
       }
       
-      $('#testTest').on('click', function() {
-          var contents =  $('textarea[name="content"]').html($('#summernote').code());
-         alert(contents);
+      // reload to textbox 
+      $('#textTest').on('click', function() {
+          var contents =  $('textarea[name="content"]').html();
+    	  var node = document.createElement('div');
+    	  
+          $.ajax({
+              type: "GET",
+              url: '/rest/article/3',
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function(url) {
+            
+            	  node.innerHTML = url.content + url.subject;
+              }
+            });
+          
+          
+         
+          //node.innerHTML = '<p>???꽮?뀋?뀕??</p><p><span style="background-color: rgb(165, 198, 206);">?뀚?뀡?뀠?뀚?뀖?뀚?뀡?뀠?뀚</span></p><p><span style="background-color: rgb(165, 198, 206);">?뀠?뀠?뀠?뀠?뀠<font color="#ff9c00">?뀠?뀚?뀖?뀚?뀖?뀚</font></span></p>';
+          $('#summernote').summernote('insertNode', node);
       });
   </script>
 </body>

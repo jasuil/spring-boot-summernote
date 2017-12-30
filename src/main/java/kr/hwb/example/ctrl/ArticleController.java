@@ -3,6 +3,8 @@ package kr.hwb.example.ctrl;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import kr.hwb.example.repository.ArticleRepository;
 @RequestMapping(value = "/article")
 public class ArticleController {
     
+	Logger logger = LoggerFactory.getLogger(ArticleController.class);
+	
     @Autowired
     private ArticleRepository articleRepository;
     
@@ -38,8 +42,7 @@ public class ArticleController {
     @PostMapping(value = "")
     public String setArticle(Article article) {
         article.setRegDate(new Date());
-        
-        System.out.println(article);
+        logger.info("------- {}", article);
         
         return "redirect:/article/" + articleRepository.save(article).getId();
     }
